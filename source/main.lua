@@ -13,10 +13,20 @@ local sfx <const> = playdate.sound
 ballX = 33
 ballY = 33
 -- Velocity
-ballVX = 2
-ballVY = 2
+ballVX = 3
+ballVY = 3
 -- Radius
 ballR = 5
+
+-- Information about the player (the paddle)
+paddleX = dsp.getWidth() / 2
+paddleY = dsp.getHeight() - 30
+
+-- Velocity
+paddleVX = 0
+-- Dimensions
+paddleWidth = 60
+paddleHeight = 10
 
 -- Sound effects.
 bip = sfx.synth.new(sfx.kWaveSine)
@@ -28,19 +38,32 @@ bip = sfx.synth.new(sfx.kWaveSine)
 function playdate.update()
     gfx.clear()
 
-    ballX = ballX + ballVX
-    ballY = ballY + ballVY
-
-    if ballX > dsp.getWidth() or ballX < 0 then
+    -- Moving the ball
+    if ballX >= dsp.getWidth() or ballX <= 0 then
         ballVX = -ballVX
         bip:playNote(261.63, 1, 0.2)
     end
-    if ballY > dsp.getHeight() or ballY < 0 then
+    if ballY >= dsp.getHeight() or ballY <= 0 then
         ballVY = -ballVY
         bip:playNote(261.63, 1, 0.2)
     end
 
+    ballX += ballVX
+    ballY += ballVY
+
     gfx.fillCircleAtPoint(ballX, ballY, ballR)
+
+    -- Moving the paddle
+    if playdate.buttonIsPressed( playdate.kButtonRight ) then
+        paddleVX = 9
+    elseif playdate.buttonIsPressed( playdate.kButtonLeft ) then
+        paddleVX = -9
+    else
+        paddleVX /= 2
+    end
+
+    paddleX += paddleVX
+    gfx.drawRect(paddleX, paddleY, paddleWidth, paddleHeight)
 
     gfx.sprite.update()
     playdate.timer.updateTimers()
