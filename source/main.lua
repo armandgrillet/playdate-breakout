@@ -4,9 +4,9 @@ import "CoreLibs/timer"
 -- Shorthands.
 -- NOTE: Because it's local, you'll have to do it in every .lua source file.
 
-local gfx <const> = playdate.graphics
-local dsp <const> = playdate.display
-local sfx <const> = playdate.sound
+local gfx<const> = playdate.graphics
+local dsp<const> = playdate.display
+local sfx<const> = playdate.sound
 
 -- Information about the ball.
 -- Coordinates.
@@ -48,21 +48,21 @@ function playdate.update()
         bip:playNote(261.63, 1, 0.2)
     end
 
-    ballX += ballVX
-    ballY += ballVY
+    ballX = ballX + ballVX
+    ballY = ballY + ballVY
 
     gfx.fillCircleAtPoint(ballX, ballY, ballR)
 
     -- Moving the paddle
-    if playdate.buttonIsPressed( playdate.kButtonRight ) then
+    if playdate.buttonIsPressed(playdate.kButtonRight) then
         paddleVX = 9
-    elseif playdate.buttonIsPressed( playdate.kButtonLeft ) then
+    elseif playdate.buttonIsPressed(playdate.kButtonLeft) then
         paddleVX = -9
     else
-        paddleVX /= 2
+        paddleVX = paddleVX / 2
     end
 
-    paddleX += paddleVX
+    paddleX = paddleX + paddleVX
     gfx.drawRect(paddleX, paddleY, paddleWidth, paddleHeight)
 
     gfx.sprite.update()
