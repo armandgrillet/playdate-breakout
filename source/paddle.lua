@@ -1,4 +1,5 @@
 local pd<const> = playdate
+local geo<const> = pd.geometry
 local gfx<const> = pd.graphics
 local dsp<const> = pd.display
 
@@ -7,7 +8,7 @@ class('Paddle').extends(gfx.sprite)
 function Paddle:init(x, y, w, h)
     Paddle.super.init(self)
     self:moveTo(x, y)
-    local paddleImage = gfx.image.new(60, 10)
+    local paddleImage = gfx.image.new(w, h)
 
     gfx.pushContext(paddleImage)
         gfx.setColor(gfx.kColorBlack)
@@ -15,7 +16,8 @@ function Paddle:init(x, y, w, h)
     gfx.popContext()
     self:setImage(paddleImage)
 
-    self.vx = 9
+    self.maxSpeed = 8
+    self.v = geo.vector2D.new(0, 0)
     self:setCollideRect(0, 0, self:getSize())
 end
 
@@ -23,21 +25,20 @@ function Paddle:update()
     Paddle.super.update(self)
     -- Moving the paddle
     if pd.buttonIsPressed(pd.kButtonRight) then
-        self.vx = 9
+        self.v.x = self.maxSpeed
     elseif pd.buttonIsPressed(pd.kButtonLeft) then
-        self.vx = -9
+        self.v.x = -self.maxSpeed
     else
-        self.vx = self.vx / 2
+        self.v.x = self.v.x / 1.8
     end
 
-    self:moveBy(self.vx, 0)
-
-    local overlappingSprites = self:overlappingSprites()
-    if #overlappingSprites > 0 then
-        print("DAMAGED")
-    end
+    self:moveWithCollisions(self.x + self.v.x, self.y + self.v.y)
 end
 
 function Paddle:moveBy(x, y)
     Paddle.super.moveBy(self, x, y)
+end
+
+function Paddle:name()
+    return "Paddle"
 end
