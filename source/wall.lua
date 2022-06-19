@@ -22,6 +22,10 @@ end
 
 function Wall:update()
     Wall.super.update(self)
+
+    if mode ~= "play" then
+        self:remove()
+    end
 end
 
 function Wall:name()

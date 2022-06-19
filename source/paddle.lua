@@ -23,16 +23,23 @@ end
 
 function Paddle:update()
     Paddle.super.update(self)
-    -- Moving the paddle
-    if pd.buttonIsPressed(pd.kButtonRight) then
-        self.v.x = self.maxSpeed
-    elseif pd.buttonIsPressed(pd.kButtonLeft) then
-        self.v.x = -self.maxSpeed
-    else
-        self.v.x = self.v.x / 1.8
+
+    if mode == "play" then
+        -- Moving the paddle
+        if pd.buttonIsPressed(pd.kButtonRight) then
+            self.v.x = self.maxSpeed
+        elseif pd.buttonIsPressed(pd.kButtonLeft) then
+            self.v.x = -self.maxSpeed
+        else
+            self.v.x = self.v.x / 1.8
+        end
+
+        self:moveWithCollisions(self.x + self.v.x, self.y + self.v.y)
     end
 
-    self:moveWithCollisions(self.x + self.v.x, self.y + self.v.y)
+    if mode ~= "play" then
+        self:remove()
+    end
 end
 
 function Paddle:moveBy(x, y)
