@@ -66,3 +66,35 @@ end
 function Over:name()
     return "Game Over"
 end
+
+class('Win').extends(gfx.sprite)
+
+function Win:init()
+    Win.super.init(self)
+
+    local winImage = gfx.image.new(dsp.getWidth(), 40)
+    gfx.pushContext(winImage)
+        gfx.setColor(gfx.kColorBlack)
+        gfx.fillRect(0, 0, dsp.getWidth(), 40)
+        gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
+        gfx.drawText("You won! Press A to restart", 10, 10)
+    gfx.popContext()
+
+    self:setImage(winImage)
+    self:moveTo(dsp.getWidth() / 2,dsp.getHeight() / 2)
+end
+
+function Win:update()
+    Win.super.update(self)
+    if pd.buttonIsPressed(playdate.kButtonA) then
+        changeMode("play")
+    end
+
+    if mode ~= "win" then
+        self:remove()
+    end
+end
+
+function Win:name()
+    return "Win"
+end

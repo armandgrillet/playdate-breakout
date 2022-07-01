@@ -51,7 +51,11 @@ function Ball:update()
         if numberOfCollisions > 0 then
             if collisions[1].other.name() == "Paddle" then
                 self.bip:playNote("C4", 1, 0.2)
-            else
+            elseif collisions[1].other.name() == "Brick" then
+                self.bip:playNote("C5", 1, 0.2)
+                collisions[1].other:remove()
+                decreaseBricksCounter()
+            else -- wall
                 self.bip:playNote("C3b", 1, 0.2)
             end
 
