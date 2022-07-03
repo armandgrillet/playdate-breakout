@@ -1,5 +1,8 @@
-# Playdate - Breakout
-Inspired by the [YouTube playlist Pico-8 Tutorial - Breakout](https://www.youtube.com/playlist?list=PLea8cjCua_P0qjjiG8G5FBgqwpqMU7rBk)
+# Playdate Breakout
+
+![Screenshot](screenshot.png)
+
+Inspired by the [YouTube playlist Pico-8 Tutorial - Breakout](https://www.youtube.com/playlist?list=PLea8cjCua_P0qjjiG8G5FBgqwpqMU7rBk). The git history is rought 1 commit per main step, I stopped at video 11.
 
 ## Requirements
 - [Node](https://nodejs.org/)
