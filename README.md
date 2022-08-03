@@ -2,7 +2,7 @@
 
 ![Screenshot](screenshot.png)
 
-Inspired by the [YouTube playlist Pico-8 Tutorial - Breakout](https://www.youtube.com/playlist?list=PLea8cjCua_P0qjjiG8G5FBgqwpqMU7rBk). The git history is rought 1 commit per main step, I stopped at video 11.
+Inspired by the [YouTube playlist Pico-8 Tutorial - Breakout](https://www.youtube.com/playlist?list=PLea8cjCua_P0qjjiG8G5FBgqwpqMU7rBk). The git history is roughly 1 commit per main step. I stopped at video 11 and used sprites.
 
 ## Requirements
 - [Node](https://nodejs.org/)
